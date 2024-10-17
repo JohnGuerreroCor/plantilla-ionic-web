@@ -1,10 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { InicioComponent } from './components/inicio/inicio.component';
+import { EstudianteComponent } from './components/estudiante/estudiante.component';
+import { RestauranteComponent } from './components/restaurante/restaurante.component';
+import { LoginComponent } from './components/login/login.component';
+import { TokenComponent } from './components/token/token.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: 'login', component: LoginComponent },
+  { path: 'token', component: TokenComponent },
+  { path: 'inicio', component: InicioComponent },
+  { path: 'estudiante', component: EstudianteComponent },
+  { path: 'restaurante', component: RestauranteComponent },
+  { path: '**', redirectTo: 'login' },
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes, {
+      useHash: true,
+      onSameUrlNavigation: 'reload',
+    }),
+  ],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
