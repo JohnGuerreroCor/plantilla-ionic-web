@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Usuario } from '../models/usuario';
@@ -11,6 +11,8 @@ import { ToastController } from '@ionic/angular';
   providedIn: 'root',
 })
 export class AuthService {
+  private authStatusSubject = new BehaviorSubject<boolean>(false);
+  authStatus = this.authStatusSubject.asObservable();
   private usuario: Usuario | undefined;
   private token: any;
   public codigoverificacion: any;
@@ -38,14 +40,18 @@ export class AuthService {
     return new Usuario();
   }
 
-  public obtenerUaa(): number {
-    let { ucod } = this.obtenerdatosToken(this.Token);
-    return ucod;
+  public obtenerUaa(): any {
+    if (this.Token) {
+      let { ucod } = this.obtenerdatosToken(this.Token);
+      return ucod;
+    }
   }
 
-  public obtenerPerCodigo(): number {
-    let { per_codigo } = this.obtenerdatosToken(this.Token);
-    return per_codigo;
+  public obtenerPerCodigo(): any {
+    if (this.Token) {
+      let { per_codigo } = this.obtenerdatosToken(this.Token);
+      return per_codigo;
+    }
   }
 
   public get Token(): any {
@@ -209,6 +215,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     localStorage.removeItem('codigo');
+    this.router.navigate(['/login']);
   }
 
   private aggAutorizacionHeader(): HttpHeaders {

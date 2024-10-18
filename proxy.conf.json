@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "https://gaitana.usco.edu.co",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

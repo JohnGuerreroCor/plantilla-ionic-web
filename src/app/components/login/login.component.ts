@@ -19,6 +19,7 @@ import { ToastController } from '@ionic/angular';
 export class LoginComponent implements OnInit {
   // Modelo para almacenar los datos del usuario del formulario de inicio de sesión
   usuario: Usuario = new Usuario();
+  alertButtons = ['Action'];
 
   // Booleano para ocultar/mostrar la contraseña
   hide = true;
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.cargando = false;
     // Crear el formulario de inicio de sesión
     this.crearFormularioLogin();
 
@@ -67,6 +69,17 @@ export class LoginComponent implements OnInit {
             icon: 'info',
             title: 'Ya se ha iniciado sesión.',
           }); */
+        this.toastController
+          .create({
+            message: 'Ya se ha iniciado sesión.',
+            duration: 2500,
+            position: 'top',
+            color: 'info',
+            icon: 'information-circle-outline',
+          })
+          .then((toast) => {
+            toast.present(); // Muestra el toast
+          });
 
         // Redirigir al usuario a la página de inicio
         this.router.navigate(['inicio']);

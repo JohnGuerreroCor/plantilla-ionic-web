@@ -5,14 +5,15 @@ import { EstudianteComponent } from './components/estudiante/estudiante.componen
 import { RestauranteComponent } from './components/restaurante/restaurante.component';
 import { LoginComponent } from './components/login/login.component';
 import { TokenComponent } from './components/token/token.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
   { path: 'token', component: TokenComponent },
-  { path: 'inicio', component: InicioComponent },
-  { path: 'estudiante', component: EstudianteComponent },
-  { path: 'restaurante', component: RestauranteComponent },
+  { path: 'inicio', component: InicioComponent, canActivate: [AuthGuard] },
+  { path: 'estudiante', component: EstudianteComponent, canActivate: [AuthGuard]  },
+  { path: 'restaurante', component: RestauranteComponent, canActivate: [AuthGuard]  },
   { path: '**', redirectTo: 'login' },
 ];
 

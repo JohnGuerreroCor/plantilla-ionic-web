@@ -21,12 +21,13 @@
       <ion-card-content class="card-body text-center font-usco-gr">
         <ion-grid>
           <div class="container">
-            <form>
+            <form [formGroup]="formToken">
               <ion-row class="ion-margin-top">
                 <ion-col>
                   <ion-text class="ion-text-center">
                     Se ha enviado a su correo institucional <br />
-                    (<b>correo</b>) un codigo de verificación. <br />
+                    (<strong *ngIf="correo">{{ correo.correo }}</strong
+                    >) un codigo de verificación. <br />
                     Por favor ingresar a su correo, copia el codigo <br />
                     y diligenciar en el campo correspondiente.
                   </ion-text>
@@ -36,34 +37,31 @@
                 <ion-item>
                   <ion-input
                     labelPlacement="stacked"
-                    label="Código"
+                    label="Código de verificación"
+                    formControlName="token"
                     placeholder="ABCDE"
+                    tabindex="1"
                   >
-                    <ion-icon
+                    <i
+                      class="fa-solid fa-key"
                       slot="start"
-                      name="key-outline"
                       aria-hidden="true"
-                    ></ion-icon>
+                    ></i>
                   </ion-input>
                 </ion-item>
               </ion-list>
               <ion-row class="ion-margin-top">
                 <ion-col>
-                  <ion-button
-                    expand="block"
-                    type="submit"
-                    tabindex="3"
-                    [routerLink]="['/inicio']"
-                  >
+                  <ion-button tabindex="2" (click)="validarToken()">
                     Validar Token
-                    <ion-spinner name="lines-small" slot="end"></ion-spinner>
+                    <!-- <ion-spinner name="lines-small" slot="end"></ion-spinner> -->
                   </ion-button>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col>
                   <small class="font-usco-gr">
-                    <strong>CITCD - Versión 1 Construcción 2.6</strong>
+                    <strong>CITCD - Versión 2 Construcción 1.0</strong>
                   </small>
                 </ion-col>
               </ion-row>

@@ -1,1 +1,35 @@
-<ion-router-outlet></ion-router-outlet>
+<ion-app>
+  <ion-menu contentId="main" side="start" *ngIf="canActivate()">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title> Menú </ion-title>
+        <ion-avatar slot="start" class="small-avatar ms-3">
+          <img alt="Avatar" src="{{ foto.url }}" />
+        </ion-avatar>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item button [routerLink]="'/inicio'">
+            <ion-label> <i class="fa-solid fa-house"></i> Inicio </ion-label>
+          </ion-item>
+          <ion-item button [routerLink]="'/estudiante'">
+            <ion-label> <i class="fa-solid fa-id-card"></i> Carnet </ion-label>
+          </ion-item>
+          <ion-item button [routerLink]="'/restaurante'">
+            <ion-label>
+              <i class="fa-solid fa-utensils"></i> Restaurante
+            </ion-label>
+          </ion-item>
+          <ion-item button (click)="logout()">
+            <ion-label>
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar sesión
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

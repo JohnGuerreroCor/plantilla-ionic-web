@@ -1,28 +1,26 @@
-<app-navbar
-  ><ion-header>
-    <ion-toolbar color="primary">
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
       <ion-buttons slot="start">
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
+        <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Inicio</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="6" *ngFor="let link of links">
-          <ion-card class="ion-text-center" [button]="true">
-            <i class="{{ link.icono }}"></i>
-            <ion-card-header class="ion-text-center">
-              <ion-card-title class="font-usco-vt"
-                ><strong>{{ link.titulo }}</strong></ion-card-title
-              >
-            </ion-card-header>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-content></app-navbar
->
+    </ion-buttons>
+    <ion-title>Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let link of links">
+        <ion-card class="ion-text-center" [button]="true">
+          <i class="{{ link.icono }}"></i>
+          <ion-card-header class="ion-text-center">
+            <ion-card-title class="font-usco-vt"
+              ><strong>{{ link.titulo }}</strong></ion-card-title
+            >
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
