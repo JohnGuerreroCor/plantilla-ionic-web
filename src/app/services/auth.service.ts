@@ -23,7 +23,9 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private toastController: ToastController
-  ) {}
+  ) {
+    this.isAuthenticated();
+  }
 
   public get user(): Usuario {
     if (this.usuario != null) {
@@ -214,8 +216,10 @@ export class AuthService {
   isAuthenticated(): boolean {
     let payload = this.obtenerdatosToken(this.Token);
     if (payload != null && payload.user_name && payload.user_name.length > 0) {
+      this.authStatusSubject.next(true);
       return true;
     }
+    this.authStatusSubject.next(false);
     return false;
   }
 

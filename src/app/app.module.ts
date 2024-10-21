@@ -14,7 +14,6 @@ import { RestauranteComponent } from './components/restaurante/restaurante.compo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { TokenComponent } from './components/token/token.component';
-import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
     RestauranteComponent,
     LoginComponent,
     TokenComponent,
-    NavbarComponent,
   ],
   imports: [
     BrowserModule,
