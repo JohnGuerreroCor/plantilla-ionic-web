@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { Foto } from './models/foto';
 import { FotoService } from './services/foto.service';
-import { AuthGuard } from './guard/auth.guard';
 
 @Component({
   selector: 'app-root',
@@ -16,26 +15,23 @@ export class AppComponent implements OnInit {
   foto: Foto = {
     url: '',
   };
+
   constructor(
     public auth: AuthService,
     private router: Router,
-    public fotoService: FotoService
-  ) {
-    this.obtenerFoto();
-  }
+    public fotoService: FotoService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
-    this.auth.authStatus.subscribe(status => {
-      this.isAuthenticated = status; // Actualiza cuando el usuario se loguea
+    this.auth.authStatus.subscribe((status) => {
+      this.isAuthenticated = status;
+      console.log('Autenticado:', this.isAuthenticated); // Para depurar
+      this.cdr.detectChanges(); // Forzar la detección de cambios
+      if (this.isAuthenticated) {
+        this.obtenerFoto(); // Cargar foto solo si está autenticado
+      }
     });
-  }
-
-  canActivate(): boolean {
-    if (this.auth.isAuthenticated()) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   obtenerFoto() {

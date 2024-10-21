@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Usuario } from '../models/usuario';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
@@ -93,7 +93,23 @@ export class AuthService {
     return this.http
       .post<any>(url, params.toString(), { headers: httpHeaders })
       .pipe(
+        tap((response) => {
+          this.guardarToken(response.access_token); // Guarda el token
+          this.guardarUsuario(response.access_token); // Guarda el usuario
+          this.authStatusSubject.next(true); // Actualiza el estado de autenticación
+        }),
         catchError((e) => {
+          this.toastController
+            .create({
+              message: e.error.error_description,
+              duration: 2500,
+              position: 'top',
+              color: 'danger',
+              icon: 'close-circle', // Puedes usar un icono de Ionic
+            })
+            .then((toast) => {
+              toast.present(); // Muestra el toast
+            });
           if (e) {
             if (e.error.error_description == 'Bad credentials') {
               /*  const Toast = swal.mixin({
@@ -114,7 +130,7 @@ export class AuthService {
             }); */
               this.toastController
                 .create({
-                  message: 'Error de inicio de sesión.',
+                  message: e,
                   duration: 2500,
                   position: 'top',
                   color: 'danger',
@@ -142,7 +158,7 @@ export class AuthService {
             icon: 'error',
             title: 'Error de inicio de sesión'
           }); */
-            this.toastController
+            /*  this.toastController
               .create({
                 message: 'Error de inicio de sesión.',
                 duration: 2500,
@@ -152,7 +168,7 @@ export class AuthService {
               })
               .then((toast) => {
                 toast.present(); // Muestra el toast
-              });
+              }); */
             return throwError(e);
           }
           return throwError(e);
@@ -215,6 +231,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     localStorage.removeItem('codigo');
+    this.authStatusSubject.next(false); // Actualiza el estado de autenticación
     this.router.navigate(['/login']);
   }
 

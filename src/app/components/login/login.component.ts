@@ -149,7 +149,7 @@ export class LoginComponent implements OnInit {
           title: 'Error de inicio de sesión',
           text: 'Usuario o contraseña vacía',
         }); */
-      this.toastController
+      /* this.toastController
         .create({
           message: 'Error de inicio de sesión.',
           duration: 2500,
@@ -159,7 +159,7 @@ export class LoginComponent implements OnInit {
         })
         .then((toast) => {
           toast.present(); // Muestra el toast
-        });
+        }); */
       this.cargando = false;
       return;
     }

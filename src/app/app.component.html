@@ -1,10 +1,12 @@
 <ion-app>
-  <ion-menu contentId="main" side="start" *ngIf="canActivate()">
+  <ion-menu contentId="main" side="start" *ngIf="isAuthenticated">
+    <!-- Cambiado aquí -->
     <ion-header>
       <ion-toolbar color="primary">
         <ion-title> Menú </ion-title>
         <ion-avatar slot="start" class="small-avatar ms-3">
-          <img alt="Avatar" src="{{ foto.url }}" />
+          <img alt="Avatar" [src]="foto.url" *ngIf="foto.url" />
+          <!-- Muestra solo si hay URL -->
         </ion-avatar>
       </ion-toolbar>
     </ion-header>
